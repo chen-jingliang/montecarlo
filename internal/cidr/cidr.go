@@ -2,7 +2,6 @@ package cidr
 
 import (
 	"bufio"
-	"crypto/rand"
 	"encoding/binary"
 	"fmt"
 	"io"
@@ -124,13 +123,11 @@ func randomAddr6(p netip.Prefix, r *mrand.Rand) netip.Addr {
 
 	// Fill a random 128-bit value, then keep only host bits and OR into base.
 	var rand128 [16]byte
-	// Try crypto/rand first to avoid correlation across heads if caller forgets seed.
-	if _, err := rand.Read(rand128[:]); err != nil {
-		// fallback to math/rand
-		for i := 0; i < 16; i++ {
-			rand128[i] = byte(r.Intn(256))
-		}
-	}
+	// Use math/rand to keep sampling reproducible under --seed (important for A/B tuning).
+	u0 := r.Uint64()
+	u1 := r.Uint64()
+	binary.BigEndian.PutUint64(rand128[0:8], u0)
+	binary.BigEndian.PutUint64(rand128[8:16], u1)
 
 	keepHostBits(&rand128, hostBits)
 	applyHostBits(base, rand128)
