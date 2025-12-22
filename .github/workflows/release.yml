@@ -1,5 +1,3 @@
-# .github/workflows/release.yaml
-
 on:
   release:
     types: [created]
@@ -9,15 +7,19 @@ permissions:
     packages: write
 
 jobs:
-  release-linux-amd64:
+  releases-matrix:
     name: release
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+      goos: [linux, windows, darwin]
+      goarch: [amd64, arm64]
     steps:
     - uses: actions/checkout@v4
     - uses: wangyoucao577/go-release-action@v1
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        goos: [linux, windows, darwin]
-        goarch: [amd64, arm64]
-        project_path: ./cmd/mcis
+        goos: ${{ matrix.goos }}
+        goarch: ${{ matrix.goarch }}
+        project_path: "./cmd/mcis"
         extra_files: readme.md ipv4cidr.txt ipv6-cidr.txt
