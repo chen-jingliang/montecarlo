@@ -5,8 +5,12 @@
 示例优选域名：`hao.haohaohao.xyz`
 
 IPv4 和 IPv6 的推荐命令分别为
+
 ```bash
 go run ./cmd/mcis --budget 500 --concurrency 50 --heads 8 --beam 32 -v --out text --sni example.com --host-header example.com --cidr-file .\ipv4cidr.txt
+```
+
+```bash
 go run ./cmd/mcis --budget 2000 --concurrency 100 --heads 8 --beam 32 -v --out text --sni example.com --host-header example.com --cidr-file .\ipv6-cidr.txt
 ```
 
@@ -25,7 +29,7 @@ go run ./cmd/mcis --budget 2000 --concurrency 100 --heads 8 --beam 32 -v --out t
 
 ## 环境要求
 
-- Go 1.20+（推荐使用较新版本）
+- Go 1.25+
 - 可访问 Cloudflare（探测需要能建立到目标 IP 的 TLS 连接）
 
 ## 安装 / 构建
