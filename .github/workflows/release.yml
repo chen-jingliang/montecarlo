@@ -1,0 +1,36 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Build & Release
+        uses: wangyoucao577/go-release-action@v1.42
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # 入口包：你的 main 在 cmd/mcis
+          project_path: ./cmd/mcis
+          binary_name: mcis
+          # 多平台产物
+          goos: linux darwin windows
+          goarch: amd64 arm64
+          # 发布时一起带上说明文档/网段文件（按需增删）
+          extra_files: readme.md ipv4cidr.txt ipv6-cidr.txt
+
