@@ -11,7 +11,7 @@ go run ./cmd/mcis --budget 500 --concurrency 50 --heads 8 --beam 32 -v --out tex
 ```
 
 ```bash
-go run ./cmd/mcis --budget 2000 --concurrency 100 --heads 10 --beam 32 -v --out text --host example.com --cidr-file ./ipv6-cidr.txt
+go run ./cmd/mcis --budget 2000 --concurrency 100 --heads 10 --beam 32 -v --out text --host example.com --cidr-file ./ipv6cidr.txt
 ```
 
 [Release](https://github.com/Leo-Mu/montecarlo-ip-searcher/releases/latest) 用户下载解压后在文件夹中右键打开终端，并将程序拖入终端，加入参数即可。
@@ -21,7 +21,7 @@ go run ./cmd/mcis --budget 2000 --concurrency 100 --heads 10 --beam 32 -v --out 
 ```
 
 ```bash
- --budget 2000 --concurrency 100 --heads 10 --beam 32 -v --out text --host example.com --cidr-file ./ipv6-cidr.txt
+ --budget 2000 --concurrency 100 --heads 10 --beam 32 -v --out text --host example.com --cidr-file ./ipv6cidr.txt
 ```
 
 注意，本项目使用的是 https 真返回测速，所以显示延迟会是其它工具的结果加上一个固定值，使用起来是一样的。使用你的网站作为 `--host`（同时用于 SNI 和 Host header），可以保证优选出来的 ip 当前在你的区域一定对你的网站生效，如有特殊需求还可自定义 path。
@@ -152,20 +152,20 @@ Vercel：
 IPv6 优选并上传（会创建 AAAA 记录）：
 
 ```bash
-./mcis --cidr-file ./ipv6-cidr.txt --budget 2000 --concurrency 100 --heads 10 --download-top 5 --dns-provider cloudflare --dns-zone YOUR_ZONE_ID --dns-subdomain cf6 --dns-token YOUR_API_TOKEN -v
+./mcis --cidr-file ./ipv6cidr.txt --budget 2000 --concurrency 100 --heads 10 --download-top 5 --dns-provider cloudflare --dns-zone YOUR_ZONE_ID --dns-subdomain cf6 --dns-token YOUR_API_TOKEN -v
 ```
 
 IPv4 + IPv6 混合优选（A 和 AAAA 记录都会更新）：
 
 ```bash
-./mcis --cidr-file ./ipv4cidr.txt --cidr-file ./ipv6-cidr.txt --budget 2000 --download-top 5 --dns-provider cloudflare --dns-zone YOUR_ZONE_ID --dns-subdomain cf --dns-token YOUR_API_TOKEN -v
+./mcis --cidr-file ./ipv4cidr.txt --cidr-file ./ipv6cidr.txt --budget 2000 --download-top 5 --dns-provider cloudflare --dns-zone YOUR_ZONE_ID --dns-subdomain cf --dns-token YOUR_API_TOKEN -v
 ```
 
 ## 项目自带网段（bgp.he.net 高可见度）
 
 仓库内自带一份 **Cloudflare 实际在用（BGP 可见度高）**的网段列表：
 
-- `ipv6-cidr.txt`：**2025-12-21** 从 `bgp.he.net` 抓取整理，筛选条件为 **visibility > 90%** 的 Cloudflare IPv6 前缀（每行一个 CIDR）。
+- `ipv6cidr.txt`：**2025-12-21** 从 `bgp.he.net` 抓取整理，筛选条件为 **visibility > 90%** 的 Cloudflare IPv6 前缀（每行一个 CIDR）。
 
 说明：
 
