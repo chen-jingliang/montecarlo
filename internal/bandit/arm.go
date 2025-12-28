@@ -97,8 +97,8 @@ func (a *ArmNode) Update(success bool, latencyMS float64, timeoutMS float64) {
 		}
 
 		// Update Gamma parameters for precision
-		a.AlphaNG += 0.5
 		if a.Successes > 1 {
+			a.AlphaNG += 0.5
 			a.BetaNG += 0.5 * (latencyMS - oldMu) * (latencyMS - a.Mu) * oldLambda / a.Lambda
 		}
 	} else {
