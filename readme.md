@@ -29,6 +29,10 @@
 | **贝叶斯优化** | 使用 Thompson Sampling 算法，自动平衡"探索新区域"和"利用已知好区域"，无需手动调参 |
 | **多次测试取平均** | 每个 IP 默认测试 6 次，跳过首次握手开销，取平均值，结果更稳定准确 |
 
+## 下载安装
+
+[Release](https://github.com/Leo-Mu/montecarlo-ip-searcher/releases/latest) 下载解压后，在文件夹中右键打开终端即可运行。
+
 ## 推荐配置
 
 **直接复制使用，无需调参：**
@@ -56,10 +60,6 @@ go run ./cmd/mcis -v --out text --cidr-file ./ipv6cidr.txt --budget 4000 --heads
 - 更多搜索头（heads）可以并行探索更广的区域，避免陷入局部最优
 
 **提示：** 推荐在晚高峰时段运行测试，因为此时不同 IP 之间的延迟差异更明显，算法更容易找到最优解。
-
-## 下载安装
-
-[Release](https://github.com/Leo-Mu/montecarlo-ip-searcher/releases/latest) 下载解压后，在文件夹中右键打开终端即可运行。
 
 ## 参数速查表
 
